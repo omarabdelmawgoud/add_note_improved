@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:second_note_app/Models/note_model.dart';
+import 'package:second_note_app/Screens/note_screen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:second_note_app/constants.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(NoteModelAdapter());
+  await Hive.openBox<NoteModel>(kNotesBox);
+  runApp(const NoteApp());
+}
+
+class NoteApp extends StatelessWidget {
+  const NoteApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xff2E2E2E),
+        fontFamily: "Poppins",
+      ),
+      home: NoteScreen(),
+    );
+  }
+}

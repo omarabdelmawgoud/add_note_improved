@@ -40,7 +40,6 @@ dependencies:
   path_provider: ^2.1.2
   bloc: ^8.1.0
   flutter_bloc: ^8.1.0
-  modal_progress_hud_nsn: ^0.4.0
 
 dev_dependencies:
   flutter_test:

@@ -19,25 +19,12 @@ class AddNoteBottomSheet extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: const SingleChildScrollView(child: AddNoteForm()),
-                ),
-
-                if (state is AddNoteLoading)
-                  const Opacity(
-                    opacity: 0.6,
-                    child: ModalBarrier(
-                      dismissible: false,
-                      color: Colors.black,
-                    ),
-                  ),
-
-                if (state is AddNoteLoading)
-                  const Center(child: CircularProgressIndicator()),
-              ],
+            return AbsorbPointer(
+              absorbing: state is AddNoteLoading,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(child: AddNoteForm()),
+              ),
             );
           },
         ),

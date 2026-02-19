@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:second_note_app/Models/note_model.dart';
 import 'package:second_note_app/Screens/edit_note_screen.dart';
+import 'package:second_note_app/cubits/notes_cubit/notes_cubit.dart';
 
 class NoteCard extends StatelessWidget {
   const NoteCard({super.key, required this.noteModel});
@@ -10,8 +12,10 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateTime? _dt = DateTime.tryParse(noteModel.date);
-    final String _displayDate = _dt != null ? DateFormat('dd MMM yyyy').format(_dt) : noteModel.date;
+    final DateTime? dt = DateTime.tryParse(noteModel.date);
+    final String displayDate = dt != null
+        ? DateFormat('dd MMM yyyy').format(dt)
+        : noteModel.date;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -46,7 +50,10 @@ class NoteCard extends StatelessWidget {
                   ),
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    noteModel.delete();
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                  },
                   icon: Icon(
                     FontAwesomeIcons.trash,
                     size: 32,
@@ -57,7 +64,7 @@ class NoteCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 24, top: 12),
                 child: Text(
-                  _displayDate,
+                  displayDate,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

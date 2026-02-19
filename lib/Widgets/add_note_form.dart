@@ -5,6 +5,7 @@ import 'package:second_note_app/Widgets/custom_button.dart';
 import 'package:second_note_app/Widgets/custom_text_field.dart';
 import 'package:second_note_app/constants.dart';
 import 'package:second_note_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:second_note_app/cubits/notes_cubit/notes_cubit.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({super.key});
@@ -62,6 +63,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                       date: DateTime.now().toString(),
                     );
                     BlocProvider.of<AddNoteCubit>(context).addNote(note);
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

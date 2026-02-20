@@ -53,7 +53,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
             builder: (context, state) {
               return CustomButton(
                 isloading: state is AddNoteLoading,
-                onsaved: () {
+                onPressed: () {
                   if (formkey.currentState!.validate()) {
                     formkey.currentState!.save();
                     NoteModel note = NoteModel(

@@ -20,7 +20,7 @@ class NoteCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => EditNoteScreen()),
+          MaterialPageRoute(builder: (context) => EditNoteScreen(note: noteModel,)),
         );
       },
       child: Container(

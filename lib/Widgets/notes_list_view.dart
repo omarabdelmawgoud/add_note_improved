@@ -13,6 +13,7 @@ class NotesListView extends StatefulWidget {
 }
 
 class _NotesListViewState extends State<NotesListView> {
+  final List<Color> colors=[];
   @override
   void initState() {
     super.initState();

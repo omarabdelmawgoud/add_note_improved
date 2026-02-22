@@ -19,6 +19,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
   final GlobalKey<FormState> formkey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, content;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(height: 32),
 
           const ColorsListView(),
+
           const SizedBox(height: 32),
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
@@ -61,7 +63,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                   if (formkey.currentState!.validate()) {
                     formkey.currentState!.save();
                     NoteModel note = NoteModel(
-                      Colors.blue.value,
+                      BlocProvider.of<AddNoteCubit>(context).color!.value,
                       title: title!,
                       content: content!,
                       date: DateTime.now().toString(),

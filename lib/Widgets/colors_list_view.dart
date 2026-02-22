@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:second_note_app/cubits/add_note_cubit/add_note_cubit.dart';
 
 class ColorItem extends StatelessWidget {
   const ColorItem({super.key, required this.isSelected, required this.color});
@@ -26,11 +28,11 @@ class ColorsListView extends StatefulWidget {
 class _ColorsListViewState extends State<ColorsListView> {
   int selectedIndex = 0;
   final List<Color> colors = [
-    Color(0xffE3C0D3),
-    Color(0xff95818D),
-    Color(0xff576066),
-    Color(0xff2C514C),
-    Color(0xff5B4171),
+    Colors.red, 
+    Colors.orange, 
+    Colors.yellow, 
+    Colors.green,
+    Colors.blue, 
   ];
 
   @override
@@ -48,6 +50,8 @@ class _ColorsListViewState extends State<ColorsListView> {
                 setState(() {
                   selectedIndex = index;
                 });
+                BlocProvider.of<AddNoteCubit>(context).color =
+                    colors[selectedIndex];
               },
               child: ColorItem(
                 isSelected: index == selectedIndex,

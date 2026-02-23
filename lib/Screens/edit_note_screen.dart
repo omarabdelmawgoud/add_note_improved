@@ -15,7 +15,22 @@ class EditNoteScreen extends StatefulWidget {
 }
 
 class _EditNoteScreenState extends State<EditNoteScreen> {
-  String? title, content;
+  late TextEditingController titleController;
+  late TextEditingController contentController;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController(text: widget.note.title);
+    contentController = TextEditingController(text: widget.note.content);
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    contentController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,24 +52,23 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
               ),
               SizedBox(height: 16),
               CustomTextField(
-                hint: widget.note.title,
-                onChanged: (value) {
-                  title = value;
-                },
+                controller: titleController,
+                hint: "Title",
+                onChanged: (value) {},
               ),
               SizedBox(height: 16),
               CustomTextField(
-                hint: widget.note.content,
+                controller: contentController,
+                hint: "Content",
                 maxlines: 5,
-                onChanged: (value) {
-                  content = value;
-                },
+                onChanged: (value) {},
               ),
               SizedBox(height: 12),
               CustomButton(
                 onPressed: () {
-                  widget.note.title = title ?? widget.note.title;
-                  widget.note.content = content ?? widget.note.content;
+                  widget.note.title = titleController.text;
+                  widget.note.content = contentController.text;
+                  widget.note.save();
                   BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                   Navigator.pop(context);
                 },

@@ -4,6 +4,7 @@ import 'package:second_note_app/Models/note_model.dart';
 import 'package:second_note_app/Widgets/custom_app_bar.dart';
 import 'package:second_note_app/Widgets/custom_button.dart';
 import 'package:second_note_app/Widgets/custom_text_field.dart';
+import 'package:second_note_app/Widgets/edit_note_colors_list.dart';
 import 'package:second_note_app/cubits/notes_cubit/notes_cubit.dart';
 
 class EditNoteScreen extends StatefulWidget {
@@ -63,6 +64,8 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                 maxlines: 5,
                 onChanged: (value) {},
               ),
+              SizedBox(height: 12),
+              EditNoteColorList(note: widget.note,),
               SizedBox(height: 12),
               CustomButton(
                 onPressed: () {
